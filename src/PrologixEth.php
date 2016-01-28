@@ -39,7 +39,7 @@ class PrologixEth implements GpibInterface
      *
      * @var mixed
      */
-    const EOL = chr(13).chr(10);
+    const EOL = "\r\n";
 
     /**
      * Create a new PrologixEth instance

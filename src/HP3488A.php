@@ -4,7 +4,7 @@ namespace Zeratulmdq\Prologix;
 
 use Zeratulmdq\Prologix\Interfaces\GpibInterface;
 
-class HP37204
+class HP3488A
 {
 	/**
 	 * Device GPIB address.
