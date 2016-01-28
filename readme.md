@@ -5,12 +5,13 @@ A few PHP classes to talk to GPIB capable devices through the Prologix GPIB inte
 #Usage
 
 ```
+$interface = new PrologixEth('192.168.254.243');
+
 (new HP8593E(18, $interface))->span(1, 'mhz')
 	                         ->centerFrecuency(3940, 'mhz')
 	                         ->referenceLevel(-55)
 	                         ->set();
-```
-```
+
 (new HP3488A(1, $interface))->open([300])
 		                    ->close([302, 502])
 		                    ->set();
