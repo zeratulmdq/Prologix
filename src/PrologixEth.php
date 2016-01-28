@@ -39,7 +39,7 @@ class PrologixEth implements GpibInterface
      *
      * @var mixed
      */
-    const EOL = "\r\n";
+    protected $eol;
 
     /**
      * Create a new PrologixEth instance
@@ -47,11 +47,13 @@ class PrologixEth implements GpibInterface
      * @param string  $ip
      * @param integer $port
      */
-    public function __construct($ip, $port = 1234)
+    public function __construct($ip, $port = 1234, $eol = null)
     {
         $this->ip = $ip;
         $this->port = $port;
         $this->socket = new Socket($this->ip, $this->port);
+        if(!$eol)
+            $this->eol = chr(13).chr(10);
     }
 
     /**
@@ -65,7 +67,7 @@ class PrologixEth implements GpibInterface
         $this->commands = array_merge(['++addr'.$address], $this->commands);
         $this->commands[] = '++loc';
         
-        return implode(self::EOL, $this->commands).self::EOL;
+        return implode($this->eol, $this->commands).$this->eol;
     }
 
     /**
