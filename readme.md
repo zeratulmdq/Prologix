@@ -44,7 +44,7 @@ With *store* = true, the commands will be saved and you should manually send the
 
 ####TODO
 
-[] Prologix USB implementation (don't own one).
-[] Laravel related files (service providers, facades, config, etc).
-[] Find a better (**ANY**) socket implementation.
-[] Tests.
+- [] Prologix USB implementation (don't own one).
+- [] Laravel related files (service providers, facades, config, etc).
+- [] Find a better (\*\*ANY\*\*) socket implementation.
+- [] Tests.
