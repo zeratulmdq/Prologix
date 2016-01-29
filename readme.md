@@ -22,7 +22,7 @@ $interface->addCommand('CF70000000')
 		  ->setAll(6);
 ```
 
-**NOTE** both ways will prepend the *++addr* command
+**NOTE:**  both ways will prepend the *++addr* command
 
 You'll find also two examples for a HP8593E spectrum analyzer (though should work with most SA) and a HP3488A switch unit. Just two wrapper around the GpibInterface implemented by PrologixEth class with *easy to remember* methods for common tasks.
 
@@ -37,14 +37,14 @@ $spectrum->span(1)
 
 Most of the methods will accept a value and an array of options. By default, this options are:
 
-- unit => hz
-- store = true
+- unit -> hz
+- store -> true
 
 With *store* = true, the commands will be saved and you should manually send them to the device using the *set* method.
 
 ####TODO
 
-- [] Prologix USB implementation (don't own one).
-- [] Laravel related files (service providers, facades, config, etc).
-- [] Find a better (\*\*ANY\*\*) socket implementation.
-- [] Tests.
+[ ] Prologix USB implementation (don't own one).
+[ ] Laravel related files (service providers, facades, config, etc).
+[ ] Find a better (\*\*ANY\*\*) socket implementation.
+[ ] Tests.
