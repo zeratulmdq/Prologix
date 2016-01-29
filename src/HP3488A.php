@@ -146,7 +146,7 @@ class HP3488A
 	 * 
 	 * @return void
 	 */
-	public function set()
+	public function setAll()
 	{
 		$this->gpib->set($this->address);
 	}

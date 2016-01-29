@@ -162,6 +162,16 @@ class HP8593E
 	}
 
 	/**
+	 * Set all stored commands
+	 *
+	 * @return void
+	 */
+	public function set()
+	{
+		$this->gpib->setAll($this->address);
+	}
+
+	/**
 	 * Set span parameter
 	 * 
 	 * @param  mixed $value
@@ -170,14 +180,20 @@ class HP8593E
 	 *
 	 * @throws \RangeException
 	 */
-	public function span($value, $unit = 'hz')
+	public function span($value, $options = [])
 	{
+		$unit = isset($options['unit']) ? $options['unit'] : 'hz';
+		$store = isset($options['store']) ? $options['store'] : 'true';
+
 		$converted = $this->convert($value, $unit);
 		
 		if(!$this->isInsideRange($converted, self::MIN_SPAN, self::MAX_SPAN))
 			throw new \RangeException("Span out of range");
 
-		$this->gpib->addCommand('SP'.$converted);
+		if($store)
+			$this->gpib->addCommand('SP'.$converted);	
+		else
+			$this->gpib->set($this->address, 'SP'.$converted);
 
 		return $this;	
 	}
@@ -191,14 +207,20 @@ class HP8593E
 	 *
 	 * @throws \RangeException
 	 */
-	public function centerFrecuency($value, $unit = 'hz')
+	public function centerFrecuency($value, $options = [])
 	{
+		$unit = isset($options['unit']) ? $options['unit'] : 'hz';
+		$store = isset($options['store']) ? $options['store'] : 'true';
+
 		$converted = $this->convert($value, $unit);
 
 		if(!$this->isInsideRange($converted, self::MIN_CENTER_FRECUENCY, self::MAX_CENTER_FRECUENCY))
 			throw new \RangeException("Center frecuency out of range");
 
-		$this->gpib->addCommand('CF'.$converted);
+		if($store)
+			$this->gpib->addCommand('CF'.$converted);	
+		else
+			$this->gpib->set($this->address, 'CF'.$converted);
 
 		return $this;
 	}
@@ -212,24 +234,19 @@ class HP8593E
 	 *
 	 * @throws \RangeException
 	 */
-	public function referenceLevel($value)
+	public function referenceLevel($value, $options = [])
 	{
+		$store = isset($options['store']) ? $options['store'] : 'true';
+
 		if(!$this->isInsideRange($value, self::MIN_REFERENCE_LEVEL, self::MAX_REFERENCE_LEVEL))
 			throw new \RangeException("Reference level out of range");
-			
-		$this->gpib->addCommand('RL'.$value);
+		
+		if($store)
+			$this->gpib->addCommand('RL'.$value);	
+		else
+			$this->gpib->set($this->address, 'RL'.$value);
 
 		return $this;
-	}
-
-	/**
-	 * Write commands to the device
-	 * 
-	 * @return void
-	 */
-	public function set()
-	{
-		$this->gpib->set($this->address);
 	}
 
 }
