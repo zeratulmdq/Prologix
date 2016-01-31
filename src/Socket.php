@@ -25,7 +25,14 @@ class Socket
 
 	public function write($command)
 	{
-			fwrite($this->fp, $command);
+		return fwrite($this->fp, $command);
+	}
+
+	public function readLine($command)
+	{
+		fwrite($this->fp, $command);
+
+		return fgets($this->fp);
 	}
 
 }

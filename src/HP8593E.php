@@ -158,7 +158,7 @@ class HP8593E
 	 */
 	private function isInsideRange($value, $start, $end)
 	{
-		return $value >= $start && $value <= $end;
+		return $value >= $start && $value <=$end;
 	}
 
 	/**
@@ -168,7 +168,7 @@ class HP8593E
 	 */
 	public function set()
 	{
-		$this->gpib->setAll($this->address);
+		$this->gpib->sendAll($this->address);
 	}
 
 	/**
@@ -183,17 +183,18 @@ class HP8593E
 	public function span($value, $options = [])
 	{
 		$unit = isset($options['unit']) ? $options['unit'] : 'hz';
-		$store = isset($options['store']) ? $options['store'] : 'true';
+		$store = isset($options['store']) ? $options['store'] : true;
+		$address = isset($options['address']) ? $options['address'] : $this->address;
 
 		$converted = $this->convert($value, $unit);
 		
 		if(!$this->isInsideRange($converted, self::MIN_SPAN, self::MAX_SPAN))
 			throw new \RangeException("Span out of range");
 
-		if($store)
+		if($store === true)
 			$this->gpib->addCommand('SP'.$converted);	
 		else
-			$this->gpib->set($this->address, 'SP'.$converted);
+			$this->gpib->send('SP'.$converted, $options['address']);
 
 		return $this;	
 	}
@@ -210,17 +211,18 @@ class HP8593E
 	public function centerFrecuency($value, $options = [])
 	{
 		$unit = isset($options['unit']) ? $options['unit'] : 'hz';
-		$store = isset($options['store']) ? $options['store'] : 'true';
+		$store = isset($options['store']) ? $options['store'] : true;
+		$address = isset($options['address']) ? $options['address'] : $this->address;
 
 		$converted = $this->convert($value, $unit);
 
 		if(!$this->isInsideRange($converted, self::MIN_CENTER_FRECUENCY, self::MAX_CENTER_FRECUENCY))
 			throw new \RangeException("Center frecuency out of range");
 
-		if($store)
+		if($store === true)
 			$this->gpib->addCommand('CF'.$converted);	
 		else
-			$this->gpib->set($this->address, 'CF'.$converted);
+			$this->gpib->send('CF'.$converted, $options['address']);
 
 		return $this;
 	}
@@ -236,15 +238,16 @@ class HP8593E
 	 */
 	public function referenceLevel($value, $options = [])
 	{
-		$store = isset($options['store']) ? $options['store'] : 'true';
+		$store = isset($options['store']) ? $options['store'] : true;
+		$address = isset($options['address']) ? $options['address'] : $this->address;
 
 		if(!$this->isInsideRange($value, self::MIN_REFERENCE_LEVEL, self::MAX_REFERENCE_LEVEL))
 			throw new \RangeException("Reference level out of range");
 		
-		if($store)
+		if($store === true)
 			$this->gpib->addCommand('RL'.$value);	
 		else
-			$this->gpib->set($this->address, 'RL'.$value);
+			$this->gpib->send('RL'.$value, $options['address']);
 
 		return $this;
 	}
