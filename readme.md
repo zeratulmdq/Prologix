@@ -43,7 +43,7 @@ And you may also set *auto* parameter as 0 and device with address #6 as listene
 $interface->auto(['value' => 0, 'address' => 6])
 ```
 
-You'll find also two examples for a HP8593E spectrum analyzer (though should work with most SA) and a HP3488A switch unit. Just two wrapper around the GpibInterface implemented by PrologixEth class with *easy to remember* methods for common tasks.
+You'll also find two examples for a HP8593E spectrum analyzer (though should work with most SA) and a HP3488A switch unit. Just two wrapper around the GpibInterface implemented by PrologixEth class with *easy to remember* methods for common tasks.
 
 ```
 $spectrum = new HP8593E(6, $interface);

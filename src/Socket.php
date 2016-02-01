@@ -20,6 +20,7 @@ class Socket
 
 	public function __destruct()
 	{
+		sleep(1);
 		fclose($this->fp);
 	}
 
